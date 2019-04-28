@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,19 +13,24 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.ThermoController;
+import model.SerialReader;
+import model.SerialWriter;
+import model.Thermo;
 
-public class ThermoVue extends JFrame implements ActionListener{
+public class ThermoVue extends JFrame implements ActionListener,Observer{
 	
 	private static final long serialVersionUID = 1L;
-	protected XXXX model;
+	protected Thermo model;
 	protected ThermoController controller;
+	private SerialReader reader;
+	private SerialWriter writer;
 	
 	/**
 	 * Constructeur 
 	 * @param model
 	 * @param controller
 	 */
-	ThermoVue(XXXX model, ThermoController controller) {
+	public ThermoVue(Thermo model, ThermoController controller) {
 		this.model = model;
 		this.controller = controller;
 		model.addObserver(this); // connexion entre vue et	modele
@@ -78,23 +84,22 @@ public class ThermoVue extends JFrame implements ActionListener{
 		test.setVisible(true);
 	}
 	
-	
-	@Override
 	/**
-	 * Permet d'afficher un string dans le chat
+	 * Permet d'afficher XXXXXXXXXXXXXXXX
 	 * @param string un string a faire passer
 	 */
 	public void affiche(String string) {
-		
 	}
 	
-	@Override
 	/**
 	 * Permet de mettre a jour la GUI
 	 * @param o un observable
 	 * @param arg un object
 	 */
 	public void update(Observable o, Object arg) {
+		NomDeLaFrame.setText(reader.getMessage());  //NomDeLaFrame = La Frame où tu veux mettre le message qui affiche l'alerte ou
+		 											  //non avec le message adéquat
+													 
 		
 	}
 
