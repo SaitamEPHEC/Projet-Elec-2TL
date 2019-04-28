@@ -45,17 +45,21 @@ public class SerialReader extends Observable implements Runnable {
                                 	System.out.println(typeOfData+" : "+x);
                                 	if(t.getTemperature()>t.getMin() && t.getTemperature()<t.getMax()){
                                 		message = "Température dans les normes";
-                        				setChanged();
-                        				notifyObservers();
                                 		//t.lblOknok.setText("Température dans les normes");
+                                		setChanged();
+                        				notifyObservers();
                                 	}
                                 	if(t.getTemperature()<t.getMin()){
                                 		message = "Inférieur au seuil minimum !";
                                         //t.lblOknok.setText("Inférieur au minimum !");
+                                		setChanged();
+                        				notifyObservers();
                                 	}
                                 	if(t.getTemperature()>t.getMax()){
                                 		message = "Supérieur au seuil maximum !";
                                         //t.lblOknok.setText("Maximum dépassé !");
+                                		setChanged();
+                        				notifyObservers();
                                 	}
                                 	
                   	}
