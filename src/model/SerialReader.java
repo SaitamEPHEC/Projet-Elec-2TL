@@ -67,7 +67,7 @@ public class SerialReader extends Observable implements Runnable {
    	public void run() {
                   	byte[] buffer = new byte[8];
                   	int len=-1;
-                  	int newint = 0;
+                  	float newint = 0;
                   	try {
                                 	while ((len = this.in.read(buffer)) > -1) {
                                                	newint+=ByteBuffer.wrap(buffer).getFloat();
