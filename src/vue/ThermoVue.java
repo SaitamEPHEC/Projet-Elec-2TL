@@ -43,7 +43,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		test.setDefaultCloseOperation(EXIT_ON_CLOSE);
 //		setLayout(new BorderLayout());
 		
-		JTextField erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
+//		JTextField erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
 		erreurs.setEditable(false);
 		
 		JButton button2 = new JButton("Exit");
