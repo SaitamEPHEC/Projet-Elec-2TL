@@ -24,6 +24,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	protected ThermoController controller;
 	private SerialReader reader;
 	private SerialWriter writer;
+	private JTextField erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
 	
 	/**
 	 * Constructeur 
@@ -42,6 +43,8 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		test.setDefaultCloseOperation(EXIT_ON_CLOSE);
 //		setLayout(new BorderLayout());
 		
+		JTextField erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
+		erreurs.setEditable(false);
 		
 		JButton button2 = new JButton("Exit");
 		button2.addActionListener(new ActionListener() {
@@ -77,6 +80,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		p.add(temp);
 		p.add(temp2);
 		p.add(texte);
+		p.add(erreurs);
 		p.add(button);
 		p.add(button2);
 		test.add(p);
@@ -97,7 +101,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	 * @param arg un object
 	 */
 	public void update(Observable o, Object arg) {
-		NomDeLaFrame.setText(reader.getMessage());  //NomDeLaFrame = La Frame où tu veux mettre le message qui affiche l'alerte ou
+		erreurs.setText(reader.getMessage());  //NomDeLaFrame = La Frame où tu veux mettre le message qui affiche l'alerte ou
 		 											  //non avec le message adéquat
 													 
 		
