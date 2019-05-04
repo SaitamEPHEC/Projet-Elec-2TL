@@ -23,7 +23,6 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	protected Temperature model;
 	protected ThermoController controller;
 	private SerialReader reader;
-	private SerialWriter writer;
 	
 	private int temperatureActuelle = 42;
 	private int temperatureSeuil = 99;
