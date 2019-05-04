@@ -4,7 +4,7 @@ import java.io.OutputStream;
 public class SerialWriter implements Runnable {
            	public OutputStream out;
            	
-           	public SerialWriter(OutputStream out, Temperature t) {
+           	public SerialWriter(OutputStream out) {
                         this.out = out;
            	}
            	

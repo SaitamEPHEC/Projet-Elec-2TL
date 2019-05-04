@@ -5,6 +5,8 @@ import java.util.Observable;
 public class Temperature extends Observable {
 	private int temperatureActuelle;
 	private int temperatureSeuil;
+	private COMListener com;
+	private SerialWriter writer;
 	String message = "Les messages d'erreurs apparaissent ici";
 	
 	/**
@@ -20,8 +22,14 @@ public class Temperature extends Observable {
 	 * @param temperatureSeuil
 	 */
 	public Temperature(int temperatureActuelle, int temperatureSeuil) {
-		this.temperatureActuelle = temperatureActuelle;
-		this.temperatureSeuil = temperatureSeuil;
+		try {
+			this.temperatureActuelle = temperatureActuelle;
+			this.temperatureSeuil = temperatureSeuil;
+			com = new COMListener("COM4");
+			writer = new SerialWriter(com.out);
+		} catch (Exception e) {
+        	e.printStackTrace();
+		}
 	}
 	
 	public void traiteData(int x) {
@@ -51,6 +59,8 @@ public class Temperature extends Observable {
 
 	public void setTemperatureActuelle(int temperatureActuelle) {
 		this.temperatureActuelle = temperatureActuelle;
+		setChanged();
+		notifyObservers();
 	}
 
 	public int getTemperatureSeuil() {
@@ -59,6 +69,9 @@ public class Temperature extends Observable {
 
 	public void setTemperatureSeuil(int temperatureSeuil) {
 		this.temperatureSeuil = temperatureSeuil;
+		writer.send(temperatureSeuil);
+		setChanged();
+		notifyObservers();
 		
 	}
 	
