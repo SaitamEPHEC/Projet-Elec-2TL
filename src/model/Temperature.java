@@ -5,7 +5,7 @@ import java.util.Observable;
 public class Temperature extends Observable {
 	private int temperatureActuelle;
 	private int temperatureSeuil;
-	String message;
+	String message = "Les messages d'erreurs apparaissent ici";
 	
 	/**
 	 * Constructeur à vide
@@ -36,6 +36,14 @@ public class Temperature extends Observable {
 			notifyObservers();
     	}
    	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	public int getTemperatureActuelle() {
 		return temperatureActuelle;
