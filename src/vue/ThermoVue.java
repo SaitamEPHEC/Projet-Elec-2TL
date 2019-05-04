@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 
 import controller.ThermoController;
 import model.SerialReader;
-import model.SerialWriter;
 import model.Temperature;
 
 public class ThermoVue extends JFrame implements ActionListener,Observer{
