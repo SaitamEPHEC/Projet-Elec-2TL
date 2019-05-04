@@ -27,6 +27,7 @@ public class Temperature extends Observable {
 			this.temperatureSeuil = temperatureSeuil;
 			com = new COMListener("COM4");
 			writer = new SerialWriter(com.out);
+			new Thread(writer).start();
 		} catch (Exception e) {
         	e.printStackTrace();
 		}

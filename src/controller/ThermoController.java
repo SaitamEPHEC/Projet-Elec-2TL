@@ -11,7 +11,10 @@ public class ThermoController {
 	public ThermoController(Temperature model) {
 		this.model = model;
 	}
+	
 	public void addView(ThermoVue vue) {
 		this.vue = vue;
 	}
+	
+	
 }
