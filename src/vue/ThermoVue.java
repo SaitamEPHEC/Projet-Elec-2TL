@@ -23,9 +23,6 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	protected ThermoController controller;
 	private SerialReader reader;
 	
-//	private int temperatureActuelle = 42;
-//	private int temperatureSeuil = 99;
-	
 	private JTextField erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
 	private JLabel labelTempActuelle = new JLabel("La temp actuelle est : " + model.getTemperatureActuelle() + "°C.");
 
@@ -38,6 +35,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	public ThermoVue(Temperature model, ThermoController controller) {
 		this.model = model;
 		this.controller = controller;
+		reader = new SerialReader(model.getCom().in, model);
 		model.addObserver(this); // connexion entre vue et	modele
 		
 		JFrame test = new JFrame("Thermometre");
