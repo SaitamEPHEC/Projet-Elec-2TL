@@ -14,9 +14,9 @@ public class Temperature extends Observable {
 	}
 	
 	/**
-	 * Constructeur
-	 * @param temperature
-	 * @param max
+	 * Constructeur avec 2 parametres
+	 * @param temperatureActuelle
+	 * @param temperatureSeuil
 	 */
 	public Temperature(int temperatureActuelle, int temperatureSeuil) {
 		this.temperatureActuelle = temperatureActuelle;

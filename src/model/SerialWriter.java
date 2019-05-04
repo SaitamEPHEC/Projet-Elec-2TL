@@ -2,7 +2,7 @@ package model;
 import java.io.IOException;
 import java.io.OutputStream;
 public class SerialWriter implements Runnable {
-           	private OutputStream out;
+           	public OutputStream out;
            	
            	public SerialWriter(OutputStream out, Temperature t) {
                         this.out = out;
@@ -24,14 +24,6 @@ public class SerialWriter implements Runnable {
            	}
            	
            	public void run(){}
-
-			public OutputStream getOut() {
-				return out;
-			}
-
-			public void setOut(OutputStream out) {
-				this.out = out;
-			}
            	       	
 }
 
