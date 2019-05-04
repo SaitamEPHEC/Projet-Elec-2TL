@@ -5,6 +5,7 @@ import java.util.Observable;
 public class Temperature extends Observable {
 	private int temperatureActuelle;
 	private int temperatureSeuil;
+	String message;
 	
 	/**
 	 * Constructeur à vide
@@ -22,20 +23,35 @@ public class Temperature extends Observable {
 		this.temperatureActuelle = temperatureActuelle;
 		this.temperatureSeuil = temperatureSeuil;
 	}
+	
+	public void traiteData(int x) {
+    	if(temperatureActuelle<temperatureSeuil){
+    		message = "Température dans les normes";
+    		setChanged();
+			notifyObservers();
+    	}
+    	if(temperatureActuelle>temperatureSeuil){
+    		message = "Supérieur au seuil maximum !";
+    		setChanged();
+			notifyObservers();
+    	}
+   	}
 
-	public int getTemperature() {
+	public int getTemperatureActuelle() {
 		return temperatureActuelle;
 	}
 
-	public void setTemperature(int temperature) {
-		this.temperatureActuelle = temperature;
+	public void setTemperatureActuelle(int temperatureActuelle) {
+		this.temperatureActuelle = temperatureActuelle;
 	}
 
-	public int getMax() {
+	public int getTemperatureSeuil() {
 		return temperatureSeuil;
 	}
 
-	public void setMax(int max) {
-		this.temperatureSeuil = max;
-	}	
+	public void setTemperatureSeuil(int temperatureSeuil) {
+		this.temperatureSeuil = temperatureSeuil;
+		
+	}
+	
 }
