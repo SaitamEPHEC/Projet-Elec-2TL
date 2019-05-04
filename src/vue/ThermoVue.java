@@ -15,23 +15,29 @@ import javax.swing.JTextField;
 import controller.ThermoController;
 import model.SerialReader;
 import model.SerialWriter;
-import model.Thermo;
+import model.Temperature;
 
 public class ThermoVue extends JFrame implements ActionListener,Observer{
 	
 	private static final long serialVersionUID = 1L;
-	protected Thermo model;
+	protected Temperature model;
 	protected ThermoController controller;
 	private SerialReader reader;
 	private SerialWriter writer;
+	
+	private int temperatureActuelle = 42;
+	private int temperatureSeuil = 99;
+	
 	private JTextField erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
+	private JLabel labelTempActuelle = new JLabel("La temp actuelle est : " + temperatureActuelle + "°C.");
+
 	
 	/**
 	 * Constructeur 
 	 * @param model
 	 * @param controller
 	 */
-	public ThermoVue(Thermo model, ThermoController controller) {
+	public ThermoVue(Temperature model, ThermoController controller) {
 		this.model = model;
 		this.controller = controller;
 		model.addObserver(this); // connexion entre vue et	modele
@@ -41,9 +47,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		test.setSize(400, 300);
 		test.setResizable(false);
 		test.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		setLayout(new BorderLayout());
-		
-//		JTextField erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
+
 		erreurs.setEditable(false);
 		
 		JButton button2 = new JButton("Exit");
@@ -52,33 +56,39 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 				System.exit(0);
 			}
 		});
-//		add(button2,BorderLayout.EAST);
+
 		
-		JLabel temp = new JLabel("La temp actuelle est : 20°C.");
-//		add(temp, BorderLayout.SOUTH);
+//		JLabel labelTempActuelle = new JLabel("La temp actuelle est : " + temperatureUpdated + "°C.");
 		
-		JLabel temp2 = new JLabel("Pour modifier la limite écrivez dans la case ==>");
+		JLabel labelSeuil = new JLabel("La température seuil est : " + temperatureSeuil + "°C.");
+		
+		JLabel labelSeuilModif = new JLabel("Pour modifier la température seuil, écrivez dans la case ==>");
 		
 		JTextField texte = new JTextField("",10);
-		texte.addActionListener(new ActionListener() {
+		texte.addActionListener(new ActionListener() { // action perform sur la case texte pour pouvoir utiliser enter
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(	Integer.parseInt(texte.getText()));
+				setTemperatureSeuil(Integer.parseInt(texte.getText()));
+				System.out.println("Nouveau seuil de :" + getTemperatureSeuil() + "°C.");
+				labelSeuil.setText("La température seuil est : " + temperatureSeuil + "°C.");
+				//writer.send(temperatureSeuil;
 			}
 		});
 		
-//		add(texte, BorderLayout.CENTER);
+
 		
 		JButton button = new JButton("Submit");
-		button.addActionListener(new ActionListener() {
+		button.addActionListener(new ActionListener() { // action perform sur le bouton submit
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(Integer.parseInt(texte.getText()));
+				setTemperatureSeuil(Integer.parseInt(texte.getText()));
+				System.out.println("Nouveau seuil de :" + getTemperatureSeuil() + "°C.");
+				labelSeuil.setText("La température seuil est : " + temperatureSeuil + "°C.");
 			}
 		});
-//		add(button, BorderLayout.WEST);
 		
 		JPanel p = new JPanel(new FlowLayout());
-		p.add(temp);
-		p.add(temp2);
+		p.add(labelTempActuelle);
+		p.add(labelSeuil);
+		p.add(labelSeuilModif);
 		p.add(texte);
 		p.add(erreurs);
 		p.add(button);
@@ -88,6 +98,20 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		test.setVisible(true);
 	}
 	
+
+	public void setTemperatureActuelle(int temperatureActuelle) {
+		this.temperatureActuelle = temperatureActuelle;
+		labelTempActuelle.setText("La temp actuelle est : " + temperatureActuelle + "°C.");
+	}
+	
+	public int getTemperatureSeuil() {
+		return temperatureSeuil;
+	}
+
+	public void setTemperatureSeuil(int temperatureSeuil) {
+		this.temperatureSeuil = temperatureSeuil;
+	}
+
 	/**
 	 * Permet d'afficher XXXXXXXXXXXXXXXX
 	 * @param string un string a faire passer
@@ -103,6 +127,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	public void update(Observable o, Object arg) {
 		erreurs.setText(reader.getMessage());  //NomDeLaFrame = La Frame où tu veux mettre le message qui affiche l'alerte ou
 		 											  //non avec le message adéquat
+		setTemperatureActuelle(model.getTemperatureActuelle());
 													 
 		
 	}
