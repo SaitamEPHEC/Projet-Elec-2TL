@@ -1,14 +1,14 @@
 package controller;
 
-import model.Thermo;
+import model.Temperature;
 import vue.ThermoVue;
 
 public class ThermoController {
 	
-	protected Thermo model;
+	protected Temperature model;
 	protected ThermoVue vue;
 	
-	public ThermoController(Thermo model) {
+	public ThermoController(Temperature model) {
 		this.model = model;
 	}
 	public void addView(ThermoVue vue) {

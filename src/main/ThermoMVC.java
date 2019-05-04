@@ -1,7 +1,7 @@
 package main;
 
 import controller.ThermoController;
-import model.Thermo;
+import model.Temperature;
 import vue.ThermoVue;
 
 public class ThermoMVC {
@@ -9,7 +9,7 @@ public class ThermoMVC {
 	public ThermoMVC() {
 			
 			//Création du modèle
-			Thermo modele = new Thermo();
+			Temperature modele = new Temperature();
 			
 			//Création du controleur
 			//Le contrôleur doit avoir une référence vers le modèle pour pouvoir le commander

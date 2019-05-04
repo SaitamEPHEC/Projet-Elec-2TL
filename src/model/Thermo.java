@@ -2,15 +2,14 @@ package model;
 
 import java.util.Observable;
 
-public class Thermo extends Observable {
-	private int temperature;
-	private int max;
-	private int min;
+public class Temperature extends Observable {
+	private int temperatureActuelle;
+	private int temperatureSeuil;
 	
 	/**
 	 * Constructeur à vide
 	 */
-	public Thermo() {
+	public Temperature() {
 		super();
 	}
 	
@@ -18,39 +17,25 @@ public class Thermo extends Observable {
 	 * Constructeur
 	 * @param temperature
 	 * @param max
-	 * @param min
 	 */
-	public Thermo(int temperature, int max, int min) {
-		this.temperature = temperature;
-		this.max = max;
-		this.min = min;
+	public Temperature(int temperatureActuelle, int temperatureSeuil) {
+		this.temperatureActuelle = temperatureActuelle;
+		this.temperatureSeuil = temperatureSeuil;
 	}
 
 	public int getTemperature() {
-		return temperature;
+		return temperatureActuelle;
 	}
 
 	public void setTemperature(int temperature) {
-		this.temperature = temperature;
+		this.temperatureActuelle = temperature;
 	}
 
 	public int getMax() {
-		return max;
+		return temperatureSeuil;
 	}
 
 	public void setMax(int max) {
-		this.max = max;
-	}
-
-	public int getMin() {
-		return min;
-	}
-
-	public void setMin(int min) {
-		this.min = min;
-	}
-
-	
-	
-	
+		this.temperatureSeuil = max;
+	}	
 }

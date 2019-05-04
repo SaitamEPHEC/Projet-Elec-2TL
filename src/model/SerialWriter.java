@@ -3,15 +3,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 public class SerialWriter implements Runnable {
            	private OutputStream out;
-           	//private int data=500;
            	
-           	public SerialWriter(OutputStream out,Thermo t) {
-                          	this.out = out;
+           	public SerialWriter(OutputStream out, Temperature t) {
+                        this.out = out;
            	}
            	
            	public void send(int i){
                           	try {
-                                        	System.out.println("Donnée envoyée :"+i);
+                                        	System.out.println("Donnée envoyée : "+i);
                                         	this.out.write(i);
                           	} catch (IOException e) {
                                         	e.printStackTrace();
