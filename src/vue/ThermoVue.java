@@ -38,6 +38,8 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		reader = new SerialReader(model.getCom().in, model);
 		model.addObserver(this); // connexion entre vue et	modele
 		
+		new Thread(reader).start();
+		
 		JFrame test = new JFrame("Thermometre");
 		
 		test.setSize(400, 300);
