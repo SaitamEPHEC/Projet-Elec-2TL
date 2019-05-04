@@ -125,7 +125,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	 * @param arg un object
 	 */
 	public void update(Observable o, Object arg) {
-		erreurs.setText(reader.getMessage());  //NomDeLaFrame = La Frame où tu veux mettre le message qui affiche l'alerte ou
+		erreurs.setText(model.getMessage());  //NomDeLaFrame = La Frame où tu veux mettre le message qui affiche l'alerte ou
 		 											  //non avec le message adéquat
 		setTemperatureActuelle(model.getTemperatureActuelle());
 													 
