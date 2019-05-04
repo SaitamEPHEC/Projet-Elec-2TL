@@ -74,5 +74,15 @@ public class Temperature extends Observable {
 		notifyObservers();
 		
 	}
+
+	public COMListener getCom() {
+		return com;
+	}
+
+	public void setCom(COMListener com) {
+		this.com = com;
+	}
+	
+	
 	
 }
