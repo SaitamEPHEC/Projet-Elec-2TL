@@ -23,8 +23,8 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	protected ThermoController controller;
 	private SerialReader reader;
 	
-	private JTextField erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
-	private JLabel labelTempActuelle = new JLabel("La temp actuelle est : " + model.getTemperatureActuelle() + "°C.");
+	private JTextField erreurs; // = new JTextField("Les messages d'erreurs apparaissent ici",30);
+	private JLabel labelTempActuelle; //= new JLabel("La temp actuelle est : " + model.getTemperatureActuelle() + "°C.");
 
 	
 	/**
@@ -38,6 +38,8 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		reader = new SerialReader(model.getCom().in, model);
 		model.addObserver(this); // connexion entre vue et	modele
 		
+		erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
+		labelTempActuelle = new JLabel("La temp actuelle est : " + model.getTemperatureActuelle() + "°C.");
 		new Thread(reader).start();
 		
 		JFrame test = new JFrame("Thermometre");
