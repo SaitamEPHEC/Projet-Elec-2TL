@@ -1,0 +1,12 @@
+ÀÄmain
+   ÀÄmain  0/152  Ram=4
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄ@MUL1616  0/32  Ram=5
+      ÃÄgestLED  0/34  Ram=3
+      ÀÄafficheTemp  0/30  Ram=1
+         ÃÄafficheUnite  0/30  Ram=2
+         ³  ÀÄ@DIV88  0/40  Ram=3
+         ÃÄ@delay_ms1  0/38  Ram=1
+         ÃÄafficheDizaine  0/30  Ram=2
+         ³  ÀÄ@DIV88  0/40  Ram=3
+         ÀÄ@delay_ms1  0/38  Ram=1

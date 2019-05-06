@@ -1,0 +1,6 @@
+>>> Warning 202 "main.c" Line 22(8,15): Variable never used:   dizaine
+>>> Warning 202 "main.c" Line 23(8,13): Variable never used:   unite
+>>> Warning 202 "main.c" Line 24(9,19): Variable never used:   typeOFData
+      Memory usage:   ROM=1%      RAM=1% - 1%
+      0 Errors,  3 Warnings.
+Build Successful.

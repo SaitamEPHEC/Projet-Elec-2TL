@@ -1,0 +1,292 @@
+CCS PCH C Compiler, Version 5.008, 5967               05-mars-19 18:17
+
+               Filename:   C:\Users\mathi\Documents\EPHEC 2TI\QUADRI 2\Electronique - Projet\CSS\main.lst
+
+               ROM used:   390 bytes (1%)
+                           Largest free fragment is 32378
+               RAM used:   8 (1%) at main() level
+                           17 (1%) worst case
+               Stack used: 3 locations
+               Stack size: 31
+
+*
+0000:  GOTO   00EE
+.................... #include <18F458.h> 
+.................... //////// Standard Header file for the PIC18F458 device //////////////// 
+.................... #device PIC18F458 
+0004:  MOVF   0D,W
+0006:  MULWF  0F
+0008:  MOVFF  FF3,01
+000C:  MOVFF  FF4,00
+0010:  MULWF  10
+0012:  MOVF   FF3,W
+0014:  ADDWF  00,F
+0016:  MOVF   0E,W
+0018:  MULWF  0F
+001A:  MOVF   FF3,W
+001C:  ADDWFC 00,W
+001E:  MOVWF  02
+0020:  GOTO   015C (RETURN)
+*
+0046:  MOVF   0E,W
+0048:  CLRF   01
+004A:  SUBWF  0D,W
+004C:  BC    0054
+004E:  MOVFF  0D,00
+0052:  BRA    006C
+0054:  CLRF   00
+0056:  MOVLW  08
+0058:  MOVWF  0F
+005A:  RLCF   0D,F
+005C:  RLCF   00,F
+005E:  MOVF   0E,W
+0060:  SUBWF  00,W
+0062:  BTFSC  FD8.0
+0064:  MOVWF  00
+0066:  RLCF   01,F
+0068:  DECFSZ 0F,F
+006A:  BRA    005A
+006C:  RETURN 0
+....................  
+.................... #list 
+....................  
+.................... #device ADC=10 
+.................... #use delay(crystal=20000000) 
+*
+008C:  CLRF   FEA
+008E:  MOVLW  0C
+0090:  MOVWF  FE9
+0092:  MOVF   FEF,W
+0094:  BZ    00B0
+0096:  MOVLW  06
+0098:  MOVWF  01
+009A:  CLRF   00
+009C:  DECFSZ 00,F
+009E:  BRA    009C
+00A0:  DECFSZ 01,F
+00A2:  BRA    009A
+00A4:  MOVLW  7B
+00A6:  MOVWF  00
+00A8:  DECFSZ 00,F
+00AA:  BRA    00A8
+00AC:  DECFSZ FEF,F
+00AE:  BRA    0096
+00B0:  RETURN 0
+.................... #use rs232(baud=19200,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
+.................... #define BCD_UNITS(x) (x % 10) //unité 
+.................... #define BCD_TENS(x) (x / 10) //dizaine 
+....................  
+.................... //void send(int temperature); 
+.................... //void receive(int typeOFData,int min,int max); 
+.................... void afficheUnite(int temperature); 
+.................... void afficheDizaine(int temperature); 
+.................... void afficheTemp(int temperature); 
+.................... void gestLED(int temps, int max, int min); 
+.................... void main() 
+*
+00EE:  CLRF   FF8
+00F0:  BCF    FD0.7
+00F2:  MOVLW  40
+00F4:  MOVWF  FAF
+00F6:  MOVLW  A6
+00F8:  MOVWF  FAC
+00FA:  MOVLW  90
+00FC:  MOVWF  FAB
+00FE:  BSF    FC1.0
+0100:  BSF    FC1.1
+0102:  BSF    FC1.2
+0104:  BCF    FC1.3
+0106:  MOVLW  07
+0108:  MOVWF  FB4
+.................... { 
+....................    setup_adc_ports(AN0); 
+010A:  BCF    FC1.0
+010C:  BSF    FC1.1
+010E:  BSF    FC1.2
+0110:  BSF    FC1.3
+....................    setup_adc(ADC_CLOCK_INTERNAL); //mettre une clock interne 
+0112:  BCF    FC1.6
+0114:  BSF    FC2.6
+0116:  BSF    FC2.7
+0118:  BSF    FC1.7
+011A:  BSF    FC2.0
+....................    setup_low_volt_detect(FALSE); 
+011C:  CLRF   FD2
+....................    int max = 30; 
+....................    int min = 1; 
+....................    int temperature = 20; 
+....................    int dizaine ; 
+....................    int unite; 
+....................    char typeOFData = "-50"; 
+011E:  MOVLW  1E
+0120:  MOVWF  05
+0122:  MOVLW  01
+0124:  MOVWF  06
+0126:  MOVLW  14
+0128:  MOVWF  07
+012A:  MOVLW  2D
+012C:  MOVWF  0A
+....................     
+....................    set_adc_channel(0); 
+012E:  MOVLW  00
+0130:  MOVWF  01
+0132:  MOVF   FC2,W
+0134:  ANDLW  C7
+0136:  IORWF  01,W
+0138:  MOVWF  FC2
+....................    while(TRUE) 
+....................    { 
+....................      temperature = read_adc() * 100 / 1024; //mettre en degré 
+013A:  BSF    FC2.2
+013C:  BTFSC  FC2.2
+013E:  BRA    013C
+0140:  MOVFF  FC4,03
+0144:  MOVFF  FC3,0B
+0148:  MOVFF  FC4,0C
+014C:  MOVFF  FC4,0E
+0150:  MOVFF  FC3,0D
+0154:  CLRF   10
+0156:  MOVLW  64
+0158:  MOVWF  0F
+015A:  BRA    0004
+015C:  MOVFF  02,0C
+0160:  RRCF   02,W
+0162:  MOVWF  02
+0164:  RRCF   02,F
+0166:  MOVLW  3F
+0168:  ANDWF  02,F
+016A:  MOVFF  02,07
+....................      gestLED(temperature,max,min); //relation avec fonction en dessous 
+016E:  MOVFF  07,0B
+0172:  MOVFF  05,0C
+0176:  MOVFF  06,0D
+017A:  BRA    0024
+....................      afficheTemp(temperature); 
+017C:  MOVFF  07,0B
+0180:  BRA    00D0
+0182:  BRA    013A
+....................    } 
+.................... } 
+.................... /* 
+0184:  SLEEP 
+.................... void send(int temperature){ 
+....................    putc(10); 
+....................    delay_ms(500); 
+....................    } 
+.................... void receive(int typeOFData,int min,int max){ 
+....................    char string[8]; 
+....................    if (typeOFData == "-50"){ 
+....................       
+....................    if (gets(string) == "-60") 
+....................      { 
+....................      typeOFData = "-60"; 
+....................      } 
+....................    if (gets(string) == "-70") 
+....................      { 
+....................      typeOFData = "-70"; 
+....................      } 
+....................     } 
+....................    else { 
+....................     if (typeOFData == "-60"){min=gets(string); typeOFData = "-50";} 
+....................     if (typeOFData == "-70"){max=gets(string); typeOFData = "-50";}   
+....................     } 
+....................    } 
+.................... */ 
+.................... void gestLED(int temp, int max, int min){ 
+....................     if(temp > max || temp < min){ 
+*
+0024:  MOVF   0B,W
+0026:  SUBWF  0C,W
+0028:  BNC   0030
+002A:  MOVF   0D,W
+002C:  SUBWF  0B,W
+002E:  BC    003A
+....................      output_high(PIN_B1); //mise à 1 
+0030:  BCF    F93.1
+0032:  BSF    F8A.1
+....................      output_low(PIN_B0); //mise à 0 
+0034:  BCF    F93.0
+0036:  BCF    F8A.0
+....................    } 
+0038:  BRA    0042
+....................    else{ 
+....................      output_low(PIN_B1); //mise à 0 
+003A:  BCF    F93.1
+003C:  BCF    F8A.1
+....................      output_high(PIN_B0); //mise à 1 
+003E:  BCF    F93.0
+0040:  BSF    F8A.0
+....................    } 
+0042:  GOTO   017C (RETURN)
+.................... } 
+....................  
+.................... void afficheTemp(int temperature){ 
+....................      while(TRUE){ 
+....................          //send(temperature); 
+....................                  //receive(typeOFData,min,max); 
+....................          afficheUnite(temperature); 
+*
+00D0:  MOVFF  0B,0C
+00D4:  BRA    006E
+....................          delay_ms(10); 
+00D6:  MOVLW  0A
+00D8:  MOVWF  0C
+00DA:  RCALL  008C
+....................          afficheDizaine(temperature); 
+00DC:  MOVFF  0B,0C
+00E0:  BRA    00B2
+....................          delay_ms(10); 
+00E2:  MOVLW  0A
+00E4:  MOVWF  0C
+00E6:  RCALL  008C
+00E8:  BRA    00D0
+....................      } 
+00EA:  GOTO   0182 (RETURN)
+.................... } 
+.................... void afficheUnite(int temperature){ 
+....................          output_d(BCD_UNITS(temperature) | (1 << 4)); 
+*
+006E:  MOVFF  0C,0D
+0072:  MOVLW  0A
+0074:  MOVWF  0E
+0076:  RCALL  0046
+0078:  MOVF   00,W
+007A:  IORLW  10
+007C:  CLRF   F95
+007E:  MOVWF  F8C
+....................          output_low(PIN_D7); 
+0080:  BCF    F95.7
+0082:  BCF    F8C.7
+....................          output_high(PIN_D6); 
+0084:  BCF    F95.6
+0086:  BSF    F8C.6
+0088:  GOTO   00D6 (RETURN)
+.................... } 
+.................... void afficheDizaine(int temperature){ 
+....................          output_d(BCD_TENS(temperature) | (1 << 5)); 
+*
+00B2:  MOVFF  0C,0D
+00B6:  MOVLW  0A
+00B8:  MOVWF  0E
+00BA:  RCALL  0046
+00BC:  MOVF   01,W
+00BE:  IORLW  20
+00C0:  CLRF   F95
+00C2:  MOVWF  F8C
+....................          output_low(PIN_D6); 
+00C4:  BCF    F95.6
+00C6:  BCF    F8C.6
+....................          output_high(PIN_D7); 
+00C8:  BCF    F95.7
+00CA:  BSF    F8C.7
+00CC:  GOTO   00E2 (RETURN)
+.................... } 
+
+Configuration Fuses:
+   Word  1: 2200   HS NOOSCSEN
+   Word  2: 0E0E   PUT BROWNOUT BORV25 NOWDT WDT128
+   Word  3: 0000  
+   Word  4: 0081   STVREN NOLVP NODEBUG
+   Word  5: C00F   NOPROTECT NOCPB NOCPD
+   Word  6: E00F   NOWRT NOWRTC NOWRTB NOWRTD
+   Word  7: 400F   NOEBTR NOEBTRB
