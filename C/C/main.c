@@ -1,5 +1,8 @@
-#include <main.h>
 
+#include <18F458.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 #byte TRISB = 0xF93
 #byte TRISD = 0xF95
 #byte TRISE = 0xF96
@@ -14,72 +17,76 @@
 #define act_deco_1 PIN_E0
 #define act_deco_2 PIN_E1
 #use delay(clock = 20000000)
+#use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
+ int limite = 0;
+#int_rda
+void isr() {
+    char seuil[10];
+    gets(seuil);
+     
+     limite = atoi(seuil);
+    //seuil =  atoi(treshstr);
+   
+   disable_interrupts(INT_RDA);
 
-int volt;
-int num;
-int dizaine;
-int unite;
-int temp;
-int tempMax;
+  
+}
+void afficheur1 (int num){
 
-void afficheur1 (num) {
+int dizaine = num /10 % 10;
+int unite = num % 10;
+output_d(dizaine );
+output_high(act_deco_1);
+output_low(act_deco_2 );
+delay_ms(300);
 
-  dizaine = num /10 % 10;
-  unite = num % 10;
+output_d(unite << 4);
+output_low(act_deco_1);
+output_high(act_deco_2);
+delay_ms(300);
 
-  output_d(dizaine);
-  output_high(act_deco_1);
-  output_low(act_deco_2 );
-
-  delay_ms(300);
-
-  output_d(unite << 4);
-  output_low(act_deco_1);
-  output_high(act_deco_2);
-
-  delay_ms(300);
 }
 
-void temperatureMax(temp) {
+void temperatureMax(int temp){
 
-   tempMax = 28; // ici c'est pas 28, mais la donnée envoyée par l'app java normalement
+   int tempMax = 28;
    //quand TRISB = 0 signal sortant
    //quand TRISB = 1 signal entrant
    TRISB = 0;
 
-   if(temp <= tempMax) {
+   if(temp <= tempMax){
       output_high(Led_2);
       output_low(Led_1);
    }
-   else  {
+   else{
       output_high(Led_1);
       delay_ms(500);
       output_low(Led_2);
    }
 }
 
-void main() {
+void main()
+{
+enable_interrupts(GLOBAL);
+   setup_adc_ports(ALL_ANALOG);
+   setup_low_volt_detect(FALSE);
+   TRISB = 0;
+   TRISD = 0;
 
-    setup_adc_ports(AN0);
-    setup_adc(ADC_CLOCK_INTERNAL);
-
-    enable_interrupts(INT_AD);
-    enable_interrupts(GLOBAL);
+   while(TRUE)
+   {
    
-    setup_low_volt_detect(FALSE);
-    set_adc_channel(0);
-
-    enable_interrupts(INT_RDA);
-    enable_interrupts(GLOBAL);
-
-
-   while(TRUE) {
-
-     volt = ((float)read_adc()  *5 /1023 *100);   //trigger an ADC conversion 
-
-      afficheur1(volt);
-      temperatureMax(volt);
-
+      output_high(Led_1);
+      delay_ms(500);
+      output_low(Led_1);
+      delay_ms(500);
+      
+      output_high(Led_2);
+      delay_ms(500);
+     
+      afficheur1(25);
+     
+      
    }
 
 }
