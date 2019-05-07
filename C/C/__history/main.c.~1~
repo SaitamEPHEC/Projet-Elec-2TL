@@ -1,0 +1,13 @@
+#include <main.h>
+
+void main()
+{
+	setup_adc_ports(AN0);
+   setup_low_volt_detect(FALSE);
+
+	while(TRUE)
+	{
+		//TODO: User Code
+	}
+
+}

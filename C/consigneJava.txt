@@ -1,0 +1,16 @@
+1) créer un programme java
+	ouvrir une fenetre
+	composée de champs et de boutons
+	1er champ pour entrer la valeur max
+	2eme champ output pour afficher la temp et msg si ca plante
+	bouton submit (pour modifier le seuil), bouton quitter
+	(si c'est fait sous MVC c'est bonus)
+
+2) télécharger le logiciel "virtual port" (mini emulateur qui lie l'app java et la simu proteus)
+
+3) créer les differents classe, etc afin d'envoyer, traiter et recevoir les données de la carte (a traver le DB9)
+	attention c'est la hess ici
+
+remarque il y aura encore des modifs a faire dans le code c, mais ca depend de comment vous travaillez avec java
+
+attention lors du flash du pic on devar peut etre faire des changements dans le code c (info de DEWULF)

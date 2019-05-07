@@ -1,0 +1,67 @@
+#include <main.h>
+
+#byte TRISB = 0xF93
+#byte TRISD = 0xF95
+#byte TRISE = 0xF96
+
+#define Led_1 PIN_B0 
+#define Led_2 PIN_B1
+#define Aff_A PIN_D0
+#define Aff_B PIN_D1
+#define Aff_C PIN_D2
+#define Aff_D PIN_D3
+#define Aff2_B PIN_D5
+#define dizaineAff PIN_E0
+#define uniteAff PIN_E1
+#use delay(clock = 20000000)
+
+int volt;
+int tens;
+int unity;
+
+void afficheur1 (int nombre){
+ TRISB = 0;
+   TRISD = 0;
+
+tens =  nombre / 10 % 10;
+    unity =  nombre % 10;
+  
+   
+   output_d(tens);
+   output_high(dizaineAff);
+   output_low(uniteAff);
+   delay_ms(10);
+
+   output_d(unity);
+   output_high(uniteAff);
+   output_low(dizaineAff);
+   delay_ms(10);
+}
+
+
+void main()
+{
+  setup_adc_ports(AN0);
+   setup_adc(ADC_CLOCK_INTERNAL);
+   enable_interrupts(INT_AD);
+   enable_interrupts(GLOBAL);
+   setup_low_volt_detect(FALSE);
+   set_adc_channel(0);
+    enable_interrupts(INT_RDA);
+   enable_interrupts(GLOBAL);
+  
+
+   while(TRUE)
+   {
+   
+     
+     volt = ((float)read_adc()  *5 /1023 *100);//trigger an ADC conversion 
+      
+    
+      afficheur1(volt);
+      
+     
+      
+   }
+
+}
