@@ -18,7 +18,7 @@ public class SerialReader extends Observable implements Runnable {
       	int len;
       	try {
                     	while ((len = this.in.read(buffer)) > -1) {
-                    		System.out.print("Donnée reçue :" + buffer[0] +"\n");
+                    		System.out.print("DonnÃ©e reÃ§ue :" + buffer[0] +"\n");
                     		t.setTemperatureActuelle(buffer[0]);
                     		t.traiteData(buffer[0]);
                                     try {
