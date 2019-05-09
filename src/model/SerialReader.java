@@ -27,6 +27,12 @@ public class SerialReader extends Observable implements Runnable {
                                     System.out.print("Donnée reçue :" + tempInt +"\n");
                                     t.setTemperatureActuelle(tempInt);
                                     t.traiteData(tempInt);
+                                    try {
+                                    	Thread.sleep(500);
+                                    } catch (InterruptedException e) {
+                                    	// TODO Auto-generated catch block
+                                    	e.printStackTrace();
+                      	}
                     	}
       	} catch (IOException e) {
                     	// TODO Auto-generated catch block
