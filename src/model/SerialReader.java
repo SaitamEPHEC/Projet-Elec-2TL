@@ -15,18 +15,33 @@ public class SerialReader extends Observable implements Runnable {
    	}
    	
    	public void run() {
-      	byte[] buffer = new byte[8];
+      	byte[] buffer = new byte[16];
       	int len=-1;
       	float tempFloat = 0;
       	int tempInt;
       	try {
                     	while ((len = this.in.read(buffer)) > -1) {
+                    		System.out.print("Donnée reçue :" + buffer[0] +"\n");
+                    		t.setTemperatureActuelle(buffer[0]);
+                    		t.traiteData(buffer[0]);
+                    			
+                    		
                     				tempFloat = ByteBuffer.wrap(buffer).getFloat();
-                                   	//System.out.println(newint);
+//                                  	System.out.println(ByteBuffer.wrap(buffer).getInt());
                                    	tempInt = Math.round(tempFloat);
-                                    System.out.print("Donnée reçue :" + tempInt +"\n");
-                                    t.setTemperatureActuelle(tempInt);
-                                    t.traiteData(tempInt);
+//                                    System.out.print("Donnée reçue :" + tempInt +"\n");
+//                                    t.setTemperatureActuelle(tempInt);
+//                                    t.traiteData(tempInt);
+                                    
+/*                                    // ZONE DE TEST YEAYEAH
+                                    System.out.println("-------------------");
+                                    System.out.println(buffer[0]);
+            						System.out.println(buffer[1]);
+            						System.out.println(buffer[2]);
+            						System.out.println(buffer[3]);
+            						System.out.println(buffer[4]);	
+                                    System.out.println("-------------------");                                   
+*/                                    //
                                     try {
                                     	Thread.sleep(500);
                                     } catch (InterruptedException e) {
