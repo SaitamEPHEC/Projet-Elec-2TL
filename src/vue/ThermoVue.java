@@ -23,8 +23,8 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	protected ThermoController controller;
 	private SerialReader reader;
 	
-	private JTextField erreurs; // = new JTextField("Les messages d'erreurs apparaissent ici",30);
-	private JLabel labelTempActuelle; //= new JLabel("La temp actuelle est : " + model.getTemperatureActuelle() + "°C.");
+	private JTextField erreurs;
+	private JLabel labelTempActuelle;
 
 	
 	/**
@@ -51,14 +51,11 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		erreurs.setEditable(false);
 		
 		JButton button2 = new JButton("Exit");
-		button2.addActionListener(new ActionListener() {
+		button2.addActionListener(new ActionListener() { // action perform pour exit
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-
-		
-//		JLabel labelTempActuelle = new JLabel("La temp actuelle est : " + temperatureUpdated + "°C.");
 		
 		JLabel labelSeuil = new JLabel("La température seuil est : " + model.getTemperatureSeuil() + "°C.");
 		
@@ -96,13 +93,6 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		
 		test.setVisible(true);
 	}
-
-	/**
-	 * Permet d'afficher XXXXXXXXXXXXXXXX
-	 * @param string un string a faire passer
-	 */
-	public void affiche(String string) {
-	}
 	
 	/**
 	 * Permet de mettre a jour la GUI
@@ -112,16 +102,12 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	public void update(Observable o, Object arg) {
 		erreurs.setText(model.getMessage());  //NomDeLaFrame = La Frame où tu veux mettre le message qui affiche l'alerte ou
 		 											  //non avec le message adéquat
-		labelTempActuelle.setText("La temp actuelle est : " + model.getTemperatureActuelle() + "°C.");
-//		setTemperatureActuelle(model.getTemperatureActuelle());
-													 
-		
+		labelTempActuelle.setText("La temp actuelle est : " + model.getTemperatureActuelle() + "°C.");										
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 }
