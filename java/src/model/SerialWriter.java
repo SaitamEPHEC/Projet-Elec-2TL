@@ -10,7 +10,7 @@ public class SerialWriter implements Runnable {
            	
            	public void send(int i){
                           	try {
-                                        	System.out.println("Donnée envoyée : "+i);
+                                        	System.out.println("DonnÃ©e envoyÃ©e : "+i);
                                         	this.out.write(i);
                           	} catch (IOException e) {
                                         	e.printStackTrace();
