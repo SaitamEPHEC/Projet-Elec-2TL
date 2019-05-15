@@ -10,13 +10,14 @@ public class SerialWriter implements Runnable {
            	
            	public void send(int i){
                           	try {
+                          					String temp = "" + i;
                                         	System.out.println("Donneee envoyee : "+i);
-                                        	this.out.write(i);
+                                        	this.out.write(temp.getBytes());
                           	} catch (IOException e) {
                                         	e.printStackTrace();
                           	}
                           	try {
-                                        	Thread.sleep(10);
+                                        	Thread.sleep(100);
                           	} catch (InterruptedException e) {
                                         	// TODO Auto-generated catch block
                                         	e.printStackTrace();
