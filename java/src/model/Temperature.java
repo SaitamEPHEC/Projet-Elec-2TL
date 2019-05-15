@@ -10,7 +10,7 @@ public class Temperature extends Observable {
 	String message = "Les messages d'erreurs apparaissent ici";
 	
 	/**
-	 * Constructeur à vide
+	 * Constructeur a� vide
 	 */
 	public Temperature() {
 		super();
@@ -35,12 +35,12 @@ public class Temperature extends Observable {
 	
 	public void traiteData(int x) {
     	if(temperatureActuelle<temperatureSeuil){
-    		message = "Température dans les normes";
+    		message = "Temperature dans les normes";
     		setChanged();
 			notifyObservers();
     	}
     	if(temperatureActuelle>temperatureSeuil){
-    		message = "Supérieur au seuil maximum !";
+    		message = "Superieur au seuil maximum !";
     		setChanged();
 			notifyObservers();
     	}
