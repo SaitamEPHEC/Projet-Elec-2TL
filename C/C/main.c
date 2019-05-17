@@ -16,7 +16,7 @@ int num;
 int dizaine;
 int unite;
 int temp;
-int valEnvoi;
+int valRecue;
 int value= 0;
 int i = 0;
 char buffer[3];
@@ -48,17 +48,19 @@ void septSegments (int num){
    delay_ms(300);
 }
 
-void temperatureMax(int temp,valEnvoi){
+void temperatureMax(int temp,valRecue){
    
    //quand TRISB = 0 signal sortant
    //quand TRISB = 1 signal entrant
    TRISB = 0;
-   if(temp <= valEnvoi){
+   if(temp <= valRecue){
       output_high(Led_2);
       output_low(Led_1);
    }
    else{
       output_high(Led_1);
+      delay_ms(300);
+      output_low(Led_1);
       output_low(Led_2);
    }
 }
@@ -75,12 +77,11 @@ void main()
       enable_interrupts(GLOBAL);
       if (flag) {
          flag = 0;
-         valEnvoi = (buffer[0] - 48)*10 + (buffer[1] -48);
-         printf("%d",valEnvoi);
+         valRecue = (buffer[0] - 48)*10 + (buffer[1] -48);
       }
       ADC = ((float)read_adc()  *5 /1023 *100); 
       septSegments(ADC);
-      temperatureMax(ADC,valEnvoi);
+      temperatureMax(ADC,valRecue);
       if (ADC != value) {
          value = ADC;
          printf("%d",ADC);
