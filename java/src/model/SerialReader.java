@@ -15,20 +15,23 @@ public class SerialReader extends Observable implements Runnable {
    	
    	public void run() {
       	byte[] buffer = new byte[4];
-      	int len;
       	try {
-                    	while ((len = this.in.read(buffer)) > -1) {
-                    		int hexaToInt = Integer.parseInt(buffer[0] + "",16);
-                    		System.out.print("Donnee recue :" + hexaToInt +"\n");
-                    		t.setTemperatureActuelle(hexaToInt);
-                    		t.traiteData(hexaToInt);
-                                    try {
-                                    	Thread.sleep(500);
-                                    } catch (InterruptedException e) {
-                                    	// TODO Auto-generated catch block
-                                    	e.printStackTrace();
-                      	}
-                    	}
+      		int len;
+        	while ((len = this.in.read(buffer)) > -1) {
+        		if(len != 0) { 
+        		String stringBuffer = new String (buffer,0,len);
+        		int intBuffer = Integer.parseInt(stringBuffer);
+        		System.out.print("Donnee recue :" + stringBuffer +"\n");
+        		t.setTemperatureActuelle(intBuffer);
+        		t.traiteData(intBuffer);
+        		}
+                        try {
+                        	Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                        	// TODO Auto-generated catch block
+                        	e.printStackTrace();
+                        }
+        	}
       	} catch (IOException e) {
                     	// TODO Auto-generated catch block
                     	e.printStackTrace();

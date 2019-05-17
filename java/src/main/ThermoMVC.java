@@ -9,7 +9,7 @@ public class ThermoMVC {
 	public ThermoMVC() {
 			
 			//Création du modèle
-			Temperature modele = new Temperature(42,69);
+			Temperature modele = new Temperature(-100,25);
 			
 			//Création du controleur
 			//Le contrôleur doit avoir une référence vers le modèle pour pouvoir le commander

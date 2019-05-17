@@ -39,7 +39,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		model.addObserver(this); // connexion entre vue et	modele
 		
 		erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
-		labelTempActuelle = new JLabel("La temp actuelle est : " + model.getTemperatureActuelle() + " C.");
+		labelTempActuelle = new JLabel("Pas encore de temperature detectee");
 		new Thread(reader).start();
 		
 		JFrame test = new JFrame("Thermometre");
@@ -101,8 +101,8 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 	 */
 	public void update(Observable o, Object arg) {
 		erreurs.setText(model.getMessage());  //NomDeLaFrame = La Frame où tu veux mettre le message qui affiche l'alerte ou
-		 											  //non avec le message adéquat
-		labelTempActuelle.setText("La temp actuelle est : " + model.getTemperatureActuelle() + " C.");										
+		 											  //non avec le message adéquatd
+		labelTempActuelle.setText("         La temp actuelle est : " + model.getTemperatureActuelle() + " C.           ");										
 	}
 
 

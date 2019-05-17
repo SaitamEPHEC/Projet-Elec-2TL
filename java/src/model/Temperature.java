@@ -34,7 +34,7 @@ public class Temperature extends Observable {
 	}
 	
 	public void traiteData(int x) {
-    	if(temperatureActuelle<temperatureSeuil){
+    	if(temperatureActuelle<=temperatureSeuil){
     		message = "Temperature dans les normes";
     		setChanged();
 			notifyObservers();

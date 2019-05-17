@@ -11,7 +11,7 @@ import gnu.io.SerialPort;
 public class COMListener {
    	public InputStream in;
    	public OutputStream out;
-   	private int rate=19200;
+   	private int rate=9600;
    	public COMListener(String portName) throws Exception {
                   	super();
                   	CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
