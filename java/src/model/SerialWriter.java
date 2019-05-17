@@ -11,7 +11,7 @@ public class SerialWriter implements Runnable {
            	public void send(int i){
                           	try {
                           					String temp = "" + i;
-                                        	System.out.println("Donneee envoyee : "+i);
+                                        	System.out.println("Donnee envoyee : "+i);
                                         	this.out.write(temp.getBytes());
                           	} catch (IOException e) {
                                         	e.printStackTrace();
