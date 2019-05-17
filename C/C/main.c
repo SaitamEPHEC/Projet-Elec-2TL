@@ -1,92 +1,89 @@
+#include <CodeC.h>
 
-#include <18F458.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #byte TRISB = 0xF93
 #byte TRISD = 0xF95
 #byte TRISE = 0xF96
 
 #define Led_1 PIN_B0 
 #define Led_2 PIN_B1
-#define Aff_A PIN_D0
-#define Aff_B PIN_D1
-#define Aff_C PIN_D2
-#define Aff_D PIN_D3
-#define Aff2_B PIN_D5
 #define act_deco_1 PIN_E0
 #define act_deco_2 PIN_E1
 #use delay(clock = 20000000)
 #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
- int limite = 0;
+
+int ADC;
+int num;
+int dizaine;
+int unite;
+int temp;
+int valEnvoi;
+int value= 0;
+int i = 0;
+char buffer[3];
+boolean flag = 0 ;
+
 #int_rda
 void isr() {
-    char seuil[10];
-    gets(seuil);
-     
-     limite = atoi(seuil);
-    //seuil =  atoi(treshstr);
+    while(flag == 0 ){
+        buffer[i] = getc();
+        disable_interrupts(INT_RDA);
+        i++;
+        if(i == 2){
+         flag = 1;
+         i = 0;
+        }
+    }
+}
    
-   disable_interrupts(INT_RDA);
-
-  
-}
-void afficheur1 (int num){
-
-int dizaine = num /10 % 10;
-int unite = num % 10;
-output_d(dizaine );
-output_high(act_deco_1);
-output_low(act_deco_2 );
-delay_ms(300);
-
-output_d(unite << 4);
-output_low(act_deco_1);
-output_high(act_deco_2);
-delay_ms(300);
-
+void septSegments (int num){
+   int dizaine = num /10 % 10;
+   int unite = num % 10;
+   output_d(dizaine);
+   output_high(act_deco_1);
+   output_low(act_deco_2);
+   delay_ms(300);
+   output_d(unite << 4);
+   output_low(act_deco_1);
+   output_high(act_deco_2);
+   delay_ms(300);
 }
 
-void temperatureMax(int temp){
-
-   int tempMax = 28;
+void temperatureMax(int temp,valEnvoi){
+   
    //quand TRISB = 0 signal sortant
    //quand TRISB = 1 signal entrant
    TRISB = 0;
-
-   if(temp <= tempMax){
+   if(temp <= valEnvoi){
       output_high(Led_2);
       output_low(Led_1);
    }
    else{
       output_high(Led_1);
-      delay_ms(500);
       output_low(Led_2);
    }
 }
 
 void main()
 {
-enable_interrupts(GLOBAL);
-   setup_adc_ports(ALL_ANALOG);
-   setup_low_volt_detect(FALSE);
-   TRISB = 0;
-   TRISD = 0;
-
-   while(TRUE)
-   {
-   
-      output_high(Led_1);
-      delay_ms(500);
-      output_low(Led_1);
-      delay_ms(500);
-      
-      output_high(Led_2);
-      delay_ms(500);
-     
-      afficheur1(25);
-     
-      
+    setup_adc_ports(AN0);
+    setup_low_volt_detect(FALSE);
+    set_adc_channel(0);
+    setup_adc(ADC_CLOCK_INTERNAL);
+    setup_low_volt_detect(FALSE);
+   while(TRUE) {
+      enable_interrupts(INT_RDA);
+      enable_interrupts(GLOBAL);
+      if (flag) {
+         flag = 0;
+         valEnvoi = (buffer[0] - 48)*10 + (buffer[1] -48);
+         printf("%d",valEnvoi);
+      }
+      ADC = ((float)read_adc()  *5 /1023 *100); 
+      septSegments(ADC);
+      temperatureMax(ADC,valEnvoi);
+      if (ADC != value) {
+         value = ADC;
+         printf("%d",ADC);
+      }
    }
-
 }
