@@ -38,7 +38,7 @@ public class ThermoVue extends JFrame implements ActionListener,Observer{
 		reader = new SerialReader(model.getCom().in, model);
 		model.addObserver(this); // connexion entre vue et	modele
 		
-		erreurs = new JTextField("Les messages d'erreurs apparaissent ici",30);
+		erreurs = new JTextField("Les messages de feedback apparaissent ici",30);
 		labelTempActuelle = new JLabel("Pas encore de temperature detectee");
 		new Thread(reader).start();
 		
